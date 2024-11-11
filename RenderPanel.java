@@ -1,24 +1,51 @@
+import board.Board;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class RenderPanel extends JPanel {
 
+    private Board board;
+
+    public RenderPanel(Board board) {
+        this.board = board;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        drawBoard(g);
+    }
 
-        g.clearRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.BLUE);
-        g.fillRect(50, 50, 800, 800);
+    // paint the board
+    private void drawBoard(Graphics g) {
+        char[][] boardData = board.getBoard();
+        int cellSize = 20;  // size of every cell
 
+        for (int i = 0; i < boardData.length; i++) {
+            for (int j = 0; j < boardData[i].length; j++) {
+                if (boardData[i][j] == '.') {
+                    g.setColor(Color.WHITE);
+                } else {
+                    g.setColor(Color.GREEN);
+                }
+                // render cell
+                g.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+                g.setColor(Color.BLACK);
+                g.drawRect(j * cellSize, i * cellSize, cellSize, cellSize);
+            }
+        }
     }
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Rendering Example");
-        RenderPanel panel = new RenderPanel();
-        frame.add(panel);
-        frame.setSize(400, 400);
+        Board board = new Board(20, 20);  // creating 20*20 board
+        RenderPanel renderPanel = new RenderPanel(board);  // creating RenderPanel
+
+        // creating window
+        JFrame frame = new JFrame("Snake Game Board");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(420, 440);  // adjust size of window
+        frame.add(renderPanel);
         frame.setVisible(true);
     }
 }
