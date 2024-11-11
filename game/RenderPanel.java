@@ -1,4 +1,6 @@
-import board.Board;
+package game;
+
+import game.board.Board;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +19,7 @@ public class RenderPanel extends JPanel {
         drawBoard(g);
     }
 
-    // paint the board
+    // paint the game.board
     private void drawBoard(Graphics g) {
         char[][] boardData = board.getBoard();
         int cellSize = 20;  // size of every cell
@@ -38,8 +40,8 @@ public class RenderPanel extends JPanel {
     }
 
     public static void main(String[] args) {
-        Board board = new Board(20, 20);  // creating 20*20 board
-        RenderPanel renderPanel = new RenderPanel(board);  // creating RenderPanel
+        Board board = new Board(20, 20);  // creating 20*20 game.board
+        RenderPanel renderPanel = new RenderPanel(board);  // creating game.RenderPanel
 
         // creating window
         JFrame frame = new JFrame("Snake Game Board");

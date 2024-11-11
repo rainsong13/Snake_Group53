@@ -1,4 +1,4 @@
-package npc;
+package game.npc;
 
 public class apple {
 }
