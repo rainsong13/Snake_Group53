@@ -1,4 +1,4 @@
-package game.board;
+package src.game.board;
 
 public class Board {
     private int rows;

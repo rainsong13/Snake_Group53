@@ -1,12 +1,26 @@
-package game;
+package ui;
 
-import game.board.Board;
-
+import src.game.board.Board;
 import javax.swing.*;
 import java.awt.*;
 
-public class RenderPanel extends JPanel {
+public class RenderUI extends JFrame {
 
+    public RenderUI(Board board) {
+
+        // set src.game title and size
+        setTitle("Snake Game");
+        setSize(720, 720);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // creating panel
+        RenderPanel renderPanel = new RenderPanel(board);
+        add(renderPanel);
+    }
+}
+
+class RenderPanel extends JPanel {
     private Board board;
 
     public RenderPanel(Board board) {
@@ -19,13 +33,13 @@ public class RenderPanel extends JPanel {
         drawBoard(g);
     }
 
-    // paint the game.board
     private void drawBoard(Graphics g) {
         char[][] boardData = board.getBoard();
-        int cellSize = 20;  // size of every cell
+        int cellSize = 720 / boardData.length;  // Caculate size of every cell
 
         for (int i = 0; i < boardData.length; i++) {
             for (int j = 0; j < boardData[i].length; j++) {
+                // set color
                 if (boardData[i][j] == '.') {
                     g.setColor(Color.WHITE);
                 } else {
@@ -33,21 +47,10 @@ public class RenderPanel extends JPanel {
                 }
                 // render cell
                 g.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+                // render edge
                 g.setColor(Color.BLACK);
                 g.drawRect(j * cellSize, i * cellSize, cellSize, cellSize);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Board board = new Board(20, 20);  // creating 20*20 game.board
-        RenderPanel renderPanel = new RenderPanel(board);  // creating game.RenderPanel
-
-        // creating window
-        JFrame frame = new JFrame("Snake Game Board");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(720, 720);  // adjust size of window
-        frame.add(renderPanel);
-        frame.setVisible(true);
     }
 }

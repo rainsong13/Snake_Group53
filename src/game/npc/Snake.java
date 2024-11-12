@@ -1,4 +1,4 @@
-package game.npc;
+package src.game.npc;
 
 public class Snake {
 }
