@@ -18,7 +18,7 @@ public class MainUI extends JFrame {
         setLayout(null);
 
         // set background image
-        JLabel background = new JLabel(new ImageIcon("path/to/your/background.gif"));
+        JLabel background = new JLabel(new ImageIcon("/ui/image/background.gif"));
         background.setBounds(0, 0, 720, 720);
         add(background);
 
