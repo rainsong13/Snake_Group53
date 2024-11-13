@@ -18,6 +18,8 @@ public class StartButton extends JButton {
         Image scaledImage = image.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         setIcon(new ImageIcon(scaledImage));
         setContentAreaFilled(false);
+        setBorderPainted(false);
+        setFocusPainted(false);
 
         addActionListener(new ActionListener() {
             @Override

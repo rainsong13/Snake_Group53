@@ -15,6 +15,8 @@ public class ExitButton extends JButton {
         Image scaledImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
         setIcon(new ImageIcon(scaledImage));
         setContentAreaFilled(false);
+        setBorderPainted(false);
+        setFocusPainted(false);
 
         addActionListener(new ActionListener() {
             @Override
