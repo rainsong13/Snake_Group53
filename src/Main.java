@@ -1,11 +1,15 @@
 import ui.MainUI;
 
-public class main {
+import javax.swing.*;
+
+public class Main {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MainUI().setVisible(true);
+                MainUI mainUI = new MainUI();
+                mainUI.setVisible(true);
+                mainUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });
     }
