@@ -2,7 +2,10 @@ package game;
 
 import game.npc.apple_pack.Apple;
 import game.npc.apple_pack.AppleGenerator;
+import game.npc.snake_pack.AppleChasingSnake;
+import game.npc.snake_pack.EnemySnake;
 import game.npc.snake_pack.Head;
+import game.npc.snake_pack.RandomSnake;
 import src.game.board.Board;
 
 import javax.swing.*;
@@ -17,6 +20,7 @@ public class GameMain {
     private Timer gameLoopTimer;
     private InputHandler inputHandler;
     private AppleGenerator appleGenerator;
+    private List <EnemySnake> enemySnakes;
 
     public GameMain() {
         // Initialize game components
@@ -24,7 +28,9 @@ public class GameMain {
         head = new Head(10, 10);
         appleGenerator = new AppleGenerator(3);  // Instantiate AppleGenerator
         List<Apple> apples = appleGenerator.getApples();
-        renderPanel = new RenderPanel(board, head, apples);
+        enemySnakes = List.of(new RandomSnake(5, 15, 15),
+                new AppleChasingSnake(5, 5, 5));
+        renderPanel = new RenderPanel(board, head, apples, enemySnakes);
 
         // Create the game window (JFrame)
         JFrame gameFrame = new JFrame("Snake");
@@ -46,17 +52,19 @@ public class GameMain {
         });
 
         // Start the game loop
-        startGameLoop();
+        startGameLoop(apples);
     }
 
-    private void startGameLoop() {
+    private void startGameLoop(List<Apple> apples) {
         // Timer for the main game loop
         gameLoopTimer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Update the snake's position using direction from input handler
                 head.move(inputHandler.getDirectionX(), inputHandler.getDirectionY());
-
+                for (EnemySnake enemySnake : enemySnakes){
+                    enemySnake.move(apples);
+                }
                 // Check for collisions (e.g., with the boundary or apples)
                 checkCollisions();
 
@@ -84,6 +92,22 @@ public class GameMain {
                 apple.applyEffect(head);
                 appleGenerator.getApples().remove(apple);  // Remove apple after it's eaten
                 break;
+            }
+        }
+        for (EnemySnake enemySnake : enemySnakes) {
+            for (int[] part : enemySnake.getBodyParts()) {
+                if (headPosition[0] == part[0] && headPosition[1] == part[1]) {
+                    System.out.println("Player collided with an enemy snake! Game Over!");
+                    gameOver();
+                }
+            }
+
+            int[] enemyHeadPosition = enemySnake.getHeadPosition();
+            for (int i = 1; i < enemySnake.getBodyParts().size(); i++) {
+                int[] bodyPart = enemySnake.getBodyParts().get(i);
+                if (enemyHeadPosition[0] == bodyPart[0] && enemyHeadPosition[1] == bodyPart[1]) {
+                    System.out.println("Enemy snake collided with itself!");
+                }
             }
         }
     }

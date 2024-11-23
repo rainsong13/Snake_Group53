@@ -1,6 +1,7 @@
 package game;
 
 import game.npc.apple_pack.Apple;
+import game.npc.snake_pack.EnemySnake;
 import game.npc.snake_pack.Snake;
 import src.game.board.Board;
 
@@ -12,11 +13,13 @@ public class RenderPanel extends JPanel {
     private Board board;
     private Snake snake;
     private List<Apple> apples;
+    private List<EnemySnake> enemySnakes;
 
-    public RenderPanel(Board board, Snake snake, List<Apple> apples) {
+    public RenderPanel(Board board, Snake snake, List<Apple> apples, List<EnemySnake> enemySnakes) {
         this.board = board;
         this.snake = snake;
         this.apples = apples;
+        this.enemySnakes = enemySnakes;
         setFocusable(true);
         requestFocusInWindow();
     }
@@ -26,7 +29,8 @@ public class RenderPanel extends JPanel {
         super.paintComponent(g);
         drawBoard(g);
         drawSnake(g);
-        drawApples(g);  // Draw apples
+        drawApples(g);
+        drawEnemySnake(g);// Draw apples
     }
 
     // Draw the game board
@@ -73,6 +77,23 @@ public class RenderPanel extends JPanel {
             int[] position = apple.getPosition();
             g.setColor(apple.getColor());
             g.fillOval(position[0] * cellSize, position[1] * cellSize, cellSize, cellSize);  // Draw apple as a circle
+        }
+    }
+
+    private void drawEnemySnake(Graphics g) {
+        for (EnemySnake enemySnake : enemySnakes){
+        int cellSize = 20;  // Size of each cell
+
+        // Draw the head
+        g.setColor(Color.BLACK);  // Use red to represent the snake's head
+        int[] headPosition = enemySnake.getHeadPosition();
+        g.fillRect(headPosition[0] * cellSize, headPosition[1] * cellSize, cellSize, cellSize);
+
+        // Draw the body
+        g.setColor(Color.BLUE);  // Use green to represent the snake's body
+        for (int i = 1; i < enemySnake.getBodyParts().size(); i++) {
+            int[] part = enemySnake.getBodyParts().get(i);
+            g.fillRect(part[0] * cellSize, part[1] * cellSize, cellSize, cellSize);}
         }
     }
 }
