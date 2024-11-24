@@ -1,6 +1,6 @@
 package ui.paypal;
 
-import ui.paypal.base.rest.APIContext;
+import com.paypal.base.rest.APIContext;
 
 public class PayPalHandler {
     private APIContext apiContext;

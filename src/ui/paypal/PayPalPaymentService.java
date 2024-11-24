@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PayPalPaymentService {
-    private PayPalHandler payPalHandler;
+    private final PayPalHandler payPalHandler;
 
     public PayPalPaymentService(PayPalHandler payPalHandler) {
         this.payPalHandler = payPalHandler;
