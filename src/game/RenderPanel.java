@@ -26,7 +26,8 @@ public class RenderPanel extends JPanel {
         super.paintComponent(g);
         drawBoard(g);
         drawSnake(g);
-        drawApples(g);  // Draw apples
+        drawApples(g);
+        drawScore(g);// Draw apples
     }
 
     // Draw the game board
@@ -74,5 +75,10 @@ public class RenderPanel extends JPanel {
             g.setColor(apple.getColor());
             g.fillOval(position[0] * cellSize, position[1] * cellSize, cellSize, cellSize);  // Draw apple as a circle
         }
+    }
+
+    private void drawScore(Graphics g) {
+        g.setColor(Color.BLACK);
+        g.drawString("Score: " + Score.getInstance().getPoints(), 50, 50);
     }
 }
