@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/paypal-store-integration.iml" filepath="$PROJECT_DIR$/paypal-store-integration.iml" />
+      <module fileurl="file://$PROJECT_DIR$/snake-game-store.iml" filepath="$PROJECT_DIR$/snake-game-store.iml" />
     </modules>
   </component>
 </project>

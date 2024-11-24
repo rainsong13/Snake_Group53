@@ -2,10 +2,9 @@ package ui;
 
 import ui.buttons.StartButton;
 import ui.buttons.ExitButton;
-import ui.buttons.StoreButton;
+import ui.buttons.MusicButton;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Objects;
 
 public class MainUI extends JFrame {
@@ -26,7 +25,7 @@ public class MainUI extends JFrame {
         // create buttons
         StartButton startGameButton = new StartButton();
         ExitButton exitButton = new ExitButton();
-        StoreButton shopButton = new StoreButton();
+        MusicButton shopButton = new MusicButton();
 
         // modify buttons
         startGameButton.setBounds(242, 260, 150, 150);
