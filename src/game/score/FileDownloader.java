@@ -15,10 +15,10 @@ public class FileDownloader {
 
     public static void downloadLatestFile() {
         try {
-            // Step 1: Get the list of all files (assuming only one file exists)
+            // Get the list of all files (assuming only one file exists)
             String key = getLatestFileKey();
             if (key != null) {
-                // Step 2: Download the file using the key
+                // Download the file using the key
                 downloadFile(key);
             } else {
                 System.out.println("No files available to download.");
@@ -42,8 +42,8 @@ public class FileDownloader {
                     // Find the first occurrence of "key" and extract it
                     int index = response.indexOf("\"key\"");
                     if (index != -1) {
-                        int start = response.indexOf("\"", index + 5) + 1; // 找到 key 值的起始位置
-                        int end = response.indexOf("\"", start); // 找到 key 值的结束位置
+                        int start = response.indexOf("\"", index + 5) + 1;
+                        int end = response.indexOf("\"", start);
                         if (start > 0 && end > start) {
                             return response.substring(start, end);
                         }

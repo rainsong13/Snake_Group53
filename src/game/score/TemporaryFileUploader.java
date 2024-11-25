@@ -7,10 +7,10 @@ import java.net.URL;
 public class TemporaryFileUploader {
 
     private static final String API_URL = "https://file.io";
-    private static final String API_KEY = "Y7Q45BD.2KBG4H7-RW84E4T-Q7BY71C-9BCJ15M";  // 你的 API key
+    private static final String API_KEY = "Y7Q45BD.2KBG4H7-RW84E4T-Q7BY71C-9BCJ15M";
 
     public static void main(String[] args) {
-        File fileToUpload = new File("src/game/score/ScoreRecord.txt");  // 请替换为你希望上传的文件路径
+        File fileToUpload = new File("src/game/score/ScoreRecord.txt");
 
         try {
             String fileKey = uploadFileToAPI(fileToUpload);
@@ -30,7 +30,7 @@ public class TemporaryFileUploader {
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
         connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=---boundary");
-        connection.setRequestProperty("Authorization", "Bearer " + API_KEY);  // 使用 Bearer 令牌进行授权
+        connection.setRequestProperty("Authorization", "Bearer " + API_KEY);
 
         try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
             outputStream.writeBytes("-----boundary\r\n");
