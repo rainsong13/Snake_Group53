@@ -2,7 +2,7 @@ package ui;
 
 import ui.buttons.StartButton;
 import ui.buttons.ExitButton;
-import ui.buttons.StoreButton;
+import ui.buttons.RankButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +26,7 @@ public class MainUI extends JFrame {
         // create buttons
         StartButton startGameButton = new StartButton();
         ExitButton exitButton = new ExitButton();
-        StoreButton shopButton = new StoreButton();
+        RankButton shopButton = new RankButton();
 
         // modify buttons
         startGameButton.setBounds(242, 260, 150, 150);

@@ -1,6 +1,6 @@
 package game.render;
 
-import game.mainpart.Score;
+import game.score.Score;
 import java.awt.*;
 
 public class ScoreRenderer {

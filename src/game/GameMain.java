@@ -22,6 +22,7 @@ public class GameMain {
     private GameLoop gameLoop;
     private CollisionHandler collisionHandler;
     private GameOverHandler gameOverHandler;
+    private JFrame gameFrame;
 
     public GameMain() {
         // Initialize game components
@@ -32,7 +33,7 @@ public class GameMain {
         renderPanel = new RenderPanel(board, head, apples);
 
         // Create the game window (JFrame)
-        JFrame gameFrame = new JFrame("Snake");
+        gameFrame = new JFrame("Snake");
         gameFrame.setSize(720, 720);
         gameFrame.setLocationRelativeTo(null);  // Center the game window on the screen
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,11 +53,15 @@ public class GameMain {
 
         // Initialize handlers
         collisionHandler = new CollisionHandler(board, head, appleGenerator);
-        gameOverHandler = new GameOverHandler(renderPanel);
+        gameOverHandler = new GameOverHandler(renderPanel, this);
 
         // Start the game loop
         gameLoop = new GameLoop(100, this::updateGame);
         gameLoop.start();
+    }
+
+    public void closeGameFrame() {
+        gameFrame.dispose();
     }
 
     private void updateGame() {
