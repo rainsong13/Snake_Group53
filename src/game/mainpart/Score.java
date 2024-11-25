@@ -1,4 +1,4 @@
-package game;
+package game.mainpart;
 
 public class Score {
     private static Score instance;

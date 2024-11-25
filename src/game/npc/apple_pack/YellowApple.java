@@ -1,6 +1,6 @@
 package game.npc.apple_pack;
 
-import game.Score;
+import game.mainpart.Score;
 import game.npc.snake_pack.Snake;
 import java.awt.Color;
 import java.util.List;

@@ -1,22 +1,27 @@
 package game;
 
+import game.mainpart.GameLoop;
+import game.mainpart.CollisionHandler;
+import game.mainpart.GameOverHandler;
+import game.mainpart.InputHandler;
 import game.npc.apple_pack.Apple;
 import game.npc.apple_pack.AppleGenerator;
 import game.npc.snake_pack.Head;
+import game.render.RenderPanel;
 import src.game.board.Board;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class GameMain {
     private Board board;
     private Head head;
     private RenderPanel renderPanel;
-    private Timer gameLoopTimer;
     private InputHandler inputHandler;
     private AppleGenerator appleGenerator;
+    private GameLoop gameLoop;
+    private CollisionHandler collisionHandler;
+    private GameOverHandler gameOverHandler;
 
     public GameMain() {
         // Initialize game components
@@ -45,51 +50,26 @@ public class GameMain {
             }
         });
 
+        // Initialize handlers
+        collisionHandler = new CollisionHandler(board, head, appleGenerator);
+        gameOverHandler = new GameOverHandler(renderPanel);
+
         // Start the game loop
-        startGameLoop();
+        gameLoop = new GameLoop(100, this::updateGame);
+        gameLoop.start();
     }
 
-    private void startGameLoop() {
-        // Timer for the main game loop
-        gameLoopTimer = new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Update the snake's position using direction from input handler
-                head.move(inputHandler.getDirectionX(), inputHandler.getDirectionY());
+    private void updateGame() {
+        // Update the snake's position using direction from input handler
+        head.move(inputHandler.getDirectionX(), inputHandler.getDirectionY());
 
-                // Check for collisions (e.g., with the boundary or apples)
-                checkCollisions();
-
-                // Repaint the game screen
-                renderPanel.repaint();
-            }
-        });
-        gameLoopTimer.start();
-    }
-
-    private void checkCollisions() {
-        int[] headPosition = head.getHeadPosition();
-        int boardWidth = board.getBoard()[0].length;
-        int boardHeight = board.getBoard().length;
-
-        // Check for boundary collisions
-        if (headPosition[0] < 0 || headPosition[1] < 0 || headPosition[0] >= boardWidth || headPosition[1] >= boardHeight) {
-            gameOver();
+        // Check for collisions
+        if (collisionHandler.checkCollisions()) {
+            gameLoop.stop();
+            gameOverHandler.handleGameOver();
         }
 
-        // Check for collisions with apples
-        for (Apple apple : appleGenerator.getApples()) {
-            int[] applePosition = apple.getPosition();
-            if (headPosition[0] == applePosition[0] && headPosition[1] == applePosition[1]) {
-                apple.applyEffect(head);
-                appleGenerator.getApples().remove(apple);  // Remove apple after it's eaten
-                break;
-            }
-        }
-    }
-
-    private void gameOver() {
-        gameLoopTimer.stop();
-        JOptionPane.showMessageDialog(renderPanel, "Game Over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
+        // Repaint the game screen
+        renderPanel.repaint();
     }
 }
