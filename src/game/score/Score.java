@@ -23,4 +23,8 @@ public class Score {
     public int getPoints() {
         return points;
     }
+
+    public void resetPoints() {
+        points = 0;
+    }
 }
