@@ -23,30 +23,29 @@ public class GameMain {
     private CollisionHandler collisionHandler;
     private GameOverHandler gameOverHandler;
     private JFrame gameFrame;
-    private Timer renderTimer;  // 新增渲染定时器
 
     public GameMain() {
-        // 初始化游戏组件
+        // Initialize game components
         board = new Board(20, 20);
         head = new Head(10, 10);
-        appleGenerator = new AppleGenerator(3);  // 实例化 AppleGenerator
+        appleGenerator = new AppleGenerator(3);  // Instantiate AppleGenerator
         List<Apple> apples = appleGenerator.getApples();
 
-        // 创建渲染面板
+        // Create RenderPanel
         renderPanel = new RenderPanel(board, head, apples);
 
-        // 将输入处理器添加到渲染面板
-        inputHandler = new InputHandler(renderPanel);  // 传递 renderPanel 给 InputHandler
+        // Add input handler to the panel
+        inputHandler = new InputHandler(renderPanel);  // Pass the renderPanel to InputHandler
 
-        // 创建游戏窗口（JFrame）
+        // Create the game window (JFrame)
         gameFrame = new JFrame("Snake");
         gameFrame.setSize(1080, 1080);
-        gameFrame.setLocationRelativeTo(null);  // 将游戏窗口居中显示
+        gameFrame.setLocationRelativeTo(null);  // Center the game window on the screen
         gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameFrame.add(renderPanel);
         gameFrame.setVisible(true);
 
-        // 设置窗口打开时获取焦点
+        // Set focus explicitly after the frame opens
         gameFrame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowOpened(java.awt.event.WindowEvent e) {
@@ -54,45 +53,35 @@ public class GameMain {
             }
         });
 
-        // 初始化处理器
+        // Initialize handlers
         collisionHandler = new CollisionHandler(board, head, appleGenerator);
         gameOverHandler = new GameOverHandler(renderPanel, this);
 
-        // 创建 60 FPS 的渲染循环
-        renderTimer = new Timer(1000 / 60, e -> renderPanel.repaint());
-        renderTimer.start();
-
-        // 开始游戏逻辑循环
-        gameLoop = new GameLoop(200, this::updateGame);
+        // Start the game loop
+        gameLoop = new GameLoop(100, this::updateGame);
         gameLoop.start();
     }
 
-    // 关闭游戏窗口
     public void closeGameFrame() {
         gameFrame.dispose();
-        renderTimer.stop();  // 停止渲染定时器
     }
 
-    // 更新游戏逻辑
     private void updateGame() {
-        // 更新蛇的位置，根据输入处理器获取的方向
+        // Update the snake's position using direction from input handler
         int directionX = inputHandler.getDirectionX();
         int directionY = inputHandler.getDirectionY();
         head.move(directionX, directionY);
 
-        // 将方向传递给渲染面板以用于渲染
+        // Pass the direction to RenderPanel for rendering
         renderPanel.updateDirection(directionX, directionY);
 
-        // 检查碰撞
+        // Check for collisions
         if (collisionHandler.checkCollisions()) {
             gameLoop.stop();
-            renderTimer.stop();  // 停止渲染
             gameOverHandler.handleGameOver();
         }
-    }
 
-    // 主方法，启动游戏
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(GameMain::new);
+        // Repaint the game screen
+        renderPanel.repaint();
     }
 }
