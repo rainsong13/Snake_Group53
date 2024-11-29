@@ -24,7 +24,16 @@ public class CollisionHandler {
 
         // Check for boundary collisions
         if (headPosition[0] < 0 || headPosition[1] < 0 || headPosition[0] >= boardWidth || headPosition[1] >= boardHeight) {
-            return true;
+            return true; // Collision with boundary
+        }
+
+        // Check for collisions with the snake's own body
+        List<int[]> bodyParts = head.getBodyParts();
+        for (int i = 1; i < bodyParts.size(); i++) {  // Start from 1 to skip the head itself
+            int[] part = bodyParts.get(i);
+            if (headPosition[0] == part[0] && headPosition[1] == part[1]) {
+                return true; // Collision with body
+            }
         }
 
         // Check for collisions with apples
@@ -38,6 +47,6 @@ public class CollisionHandler {
             }
         }
 
-        return false;
+        return false; // No collision detected
     }
 }

@@ -15,6 +15,6 @@ public class RedApple extends Apple {
     @Override
     public void applyEffect(Snake snake) {
         snake.grow();  // Increase snake length by 1
-        Score.getInstance().addPoints(1); // Add 1 point
+        Score.getInstance().addPoints(3); // Add 1 point
     }
 }
