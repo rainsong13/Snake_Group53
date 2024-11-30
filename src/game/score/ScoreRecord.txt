@@ -1,9 +1,0 @@
-Nick,15
-qqq,-5
-Peter,68
-qqqq,1
-matttt,14
-John,0
-Wow!,-8
-NIIck,0
-Edward,99999
