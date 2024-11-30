@@ -1,5 +1,7 @@
 package game;
 
+import game.model.GameMain;
+
 public class StartGame {
 
     public static void start() {
