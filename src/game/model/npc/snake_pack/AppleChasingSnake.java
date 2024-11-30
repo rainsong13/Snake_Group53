@@ -1,5 +1,5 @@
-package game.npc.snake_pack;
-import game.npc.apple_pack.Apple;
+package game.model.npc.snake_pack;
+import game.model.npc.apple_pack.Apple;
 import java.util.List;
 
 public class AppleChasingSnake extends EnemySnake{

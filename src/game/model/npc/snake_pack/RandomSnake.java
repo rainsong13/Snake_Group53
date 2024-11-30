@@ -1,6 +1,6 @@
-package game.npc.snake_pack;
+package game.model.npc.snake_pack;
 
-import game.npc.apple_pack.Apple;
+import game.model.npc.apple_pack.Apple;
 
 import java.util.List;
 
