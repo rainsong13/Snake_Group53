@@ -78,7 +78,7 @@ public class GameMain {
         }
 
         // Initialize handlers
-        collisionHandler = new CollisionHandler(board, head, appleGenerator);
+        collisionHandler = new CollisionHandler(board, head, appleGenerator, enemySnakes);
         gameOverHandler = new GameOverHandler(renderPanel, this);
 
         // Start the game loop
