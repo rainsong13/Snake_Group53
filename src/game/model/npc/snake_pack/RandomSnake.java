@@ -11,7 +11,7 @@ public class RandomSnake extends EnemySnake{
     }
 
     @Override
-    public void move(List<Apple> apples) {
-        super.move(apples);
+    public void move(List<Apple> apples, Head playerHead) {
+        super.move(apples, playerHead);
     }
 }

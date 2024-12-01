@@ -9,9 +9,9 @@ public class AppleChasingSnake extends EnemySnake{
     }
 
     @Override
-    public void move(List<Apple> apples) {
+    public void move(List<Apple> apples, Head playerHead) {
         if (apples.isEmpty()){
-            super.move(apples);
+            super.move(apples, playerHead);
             return;
         }
         Apple closestApple = apples.get(0);

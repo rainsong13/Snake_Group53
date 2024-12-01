@@ -12,7 +12,7 @@ public class EnemySnake extends Snake{
         super(initialLength, startX, startY);
     }
 
-    public void move(List<Apple> apples){
+    public void move(List<Apple> apples, Head playerHead){
         int[] directions = new int[]{-1, 0, 1, 0};
         int directionX = directions[random.nextInt(directions.length)];
         int directionY = directions[random.nextInt(directions.length)];

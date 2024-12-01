@@ -18,4 +18,12 @@ public class Head extends Snake {
     public void move() {
         super.move(directionX, directionY); // Use Snake's move method with the current direction
     }
+
+    public int getDirectionX() {
+        return directionX;
+    }
+
+    public int getDirectionY() {
+        return directionY;
+    }
 }
