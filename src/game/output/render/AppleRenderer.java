@@ -15,9 +15,9 @@ public class AppleRenderer {
     // Static block to加载苹果的图片资源
     static {
         try {
-            appleImages.put(Color.RED, new ImageIcon("src/game/render/image/apple/redapple.png"));
-            appleImages.put(Color.YELLOW, new ImageIcon("src/game/render/image/apple/yellowapple.png"));
-            appleImages.put(Color.GREEN, new ImageIcon("src/game/render/image/apple/greenapple.png"));
+            appleImages.put(Color.RED, new ImageIcon("src/game/output/render/image/apple/redapple.png"));
+            appleImages.put(Color.YELLOW, new ImageIcon("src/game/output/render/image/apple/yellowapple.png"));
+            appleImages.put(Color.GREEN, new ImageIcon("src/game/render/output/image/apple/greenapple.png"));
         } catch (Exception e) {
             System.err.println("Failed to load apple images: " + e.getMessage());
         }

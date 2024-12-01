@@ -1,6 +1,7 @@
 package game.output;
 
 import game.model.npc.apple_pack.Apple;
+import game.model.npc.snake_pack.EnemySnake;
 import game.model.npc.snake_pack.Snake;
 import game.output.render.AppleRenderer;
 import game.output.render.ScoreRenderer;
@@ -18,11 +19,15 @@ public class RenderPanel extends JPanel {
     private Image boardImage;
     private int directionX;
     private int directionY;
+    private final List<EnemySnake> enemySnakes;
+    private final SnakeRenderer snakeRenderer;
 
-    public RenderPanel(Board board, Snake snake, List<Apple> apples) {
+    public RenderPanel(Board board, Snake snake, List<Apple> apples, List<EnemySnake> enemySnakes) {
         this.board = board;
         this.snake = snake;
         this.apples = apples;
+        this.enemySnakes = enemySnakes;
+        this.snakeRenderer = new SnakeRenderer();
         setFocusable(true);
         requestFocusInWindow();
         loadImages();
@@ -45,6 +50,9 @@ public class RenderPanel extends JPanel {
         new SnakeRenderer().drawSnake(g, snake, directionX, directionY);
         new AppleRenderer().drawApples(g, apples);
         new ScoreRenderer().drawScore(g);
+        for (EnemySnake enemy : enemySnakes) {
+            snakeRenderer.drawSnake(g, enemy, 0, 0);
+        }
     }
 
     // Draw the game board

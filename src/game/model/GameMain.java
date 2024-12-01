@@ -2,6 +2,9 @@ package game.model;
 
 import game.model.mainpart.GameLoop;
 import game.model.mainpart.CollisionHandler;
+import game.model.npc.snake_pack.AppleChasingSnake;
+import game.model.npc.snake_pack.EnemySnake;
+import game.model.npc.snake_pack.RandomSnake;
 import game.model.mainpart.GameOverHandler;
 import game.input.InputHandler;
 import game.model.npc.apple_pack.Apple;
@@ -12,11 +15,13 @@ import game.model.score.Score;
 import game.model.board.Board;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameMain {
     private Board board;
     private Head head;
+    private List<EnemySnake> enemySnakes;
     private RenderPanel renderPanel;
     private InputHandler inputHandler;
     private AppleGenerator appleGenerator;
@@ -38,9 +43,13 @@ public class GameMain {
         head = new Head(10, 10);
         appleGenerator = new AppleGenerator(3);  // Instantiate AppleGenerator
         List<Apple> apples = appleGenerator.getApples();
+        enemySnakes = new ArrayList<>();
 
+        // Add enemy snakes of various types
+        enemySnakes.add(new RandomSnake(5, 15, 15));
+        enemySnakes.add(new AppleChasingSnake(5, 5, 5));
         // Create RenderPanel
-        renderPanel = new RenderPanel(board, head, apples);
+        renderPanel = new RenderPanel(board, head, apples, enemySnakes);
 
         // Add input handler to the panel
         inputHandler = new InputHandler(renderPanel);  // Pass the renderPanel to InputHandler
@@ -86,7 +95,9 @@ public class GameMain {
         int directionX = inputHandler.getDirectionX();
         int directionY = inputHandler.getDirectionY();
         head.move(directionX, directionY);
-
+        for (EnemySnake enemy : enemySnakes){
+            enemy.move(appleGenerator.getApples());
+        }
         // Pass the direction to RenderPanel for rendering
         renderPanel.updateDirection(directionX, directionY);
 
