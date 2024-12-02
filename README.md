@@ -46,10 +46,12 @@ This game is perfect for anyone looking for a fun and strategic gaming experienc
 
 ### **Visual Examples**
 #### **UML Diagram of Game Architecture**
-![](C:\Users\reaga\Desktop\b39c25e2972131b55fd55c5585caf46.jpg)
+![exported_from_idea 的副本 drawio](https://github.com/user-attachments/assets/fc02e245-928d-4d3b-b849-66b74a644c3d)
+
 
 #### **Gameplay Screenshot**
-![](C:\Users\reaga\Desktop\7f48a072d70e7737cfe54d012f9ad16.jpg)
+![7f48a072d70e7737cfe54d012f9ad16](https://github.com/user-attachments/assets/c4811a65-b630-4cc3-985c-afcd08edfcf1)
+
 
 ---
 
