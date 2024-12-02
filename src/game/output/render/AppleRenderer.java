@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class AppleRenderer {
     private static final Map<Color, ImageIcon> appleImages = new HashMap<>();
-    private static final int CELL_SIZE = 50; // 每个单元格固定为 54x54 像素
+    private static final int CELL_SIZE = 50; // to set each unit square to 54 x 54 pixels
 
-    // Static block to加载苹果的图片资源
+    // Static block to load the apple file
     static {
         try {
             appleImages.put(Color.RED, new ImageIcon("src/game/output/image/apple/greenapple.png"));
@@ -29,15 +29,15 @@ public class AppleRenderer {
             ImageIcon appleImage = appleImages.get(apple.getColor());
 
             if (appleImage != null) {
-                // 绘制苹果图片，位置是 position[0] * CELL_SIZE, position[1] * CELL_SIZE
+                // render apple picture, where its position is position[0] * CELL_SIZE, position[1] * CELL_SIZE
                 g.drawImage(
                         appleImage.getImage(),
                         position[0] * CELL_SIZE, position[1] * CELL_SIZE,
-                        CELL_SIZE, CELL_SIZE,  // 使用固定的单元格大小
+                        CELL_SIZE, CELL_SIZE,  // use the stable unit cube
                         null
                 );
             } else {
-                // 如果图片没有加载成功，使用一个颜色表示
+                // if the picture failed to load, then represent it using another color
                 g.setColor(apple.getColor());
                 g.fillOval(position[0] * CELL_SIZE, position[1] * CELL_SIZE, CELL_SIZE, CELL_SIZE);
             }

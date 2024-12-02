@@ -21,7 +21,7 @@ public class SnakeRenderer {
     }
 
     public void drawSnake(Graphics g, Snake snake, int directionX, int directionY) {
-        int cellSize = 50;  // 每一格的大小
+        int cellSize = 50;  // the size of each space
 
         // 绘制蛇的身体部分
         for (int i = 1; i < snake.getBodyParts().size(); i++) {
@@ -31,11 +31,11 @@ public class SnakeRenderer {
             g.drawImage(bodyImage, bodyDrawX, bodyDrawY, cellSize, cellSize, null);
         }
 
-        // 获取蛇头的位置
+        // get the location of snake head
         int[] headPosition = snake.getHeadPosition();
         Graphics2D g2d = (Graphics2D) g;
 
-        // 设置旋转变换
+        // set transform
         AffineTransform oldTransform = g2d.getTransform();
         AffineTransform transform = new AffineTransform();
 
@@ -43,22 +43,22 @@ public class SnakeRenderer {
         int centerX = headPosition[0] * cellSize + cellSize / 2;
         int centerY = headPosition[1] * cellSize + cellSize / 2;
 
-        // 根据方向旋转蛇头
+        // change the direction of the snake base on its direction
         if (directionX == -1 && directionY == 0) {
-            // 向右
+            // to right
             transform.rotate(Math.toRadians(90), centerX, centerY);
         } else if (directionX == 1 && directionY == 0) {
-            // 向左
+            // to left
             transform.rotate(Math.toRadians(-90), centerX, centerY);
         } else if (directionX == 0 && directionY == -1) {
-            // 向上
+            // to up
             transform.rotate(Math.toRadians(180), centerX, centerY);
         }
 
         g2d.setTransform(transform);
 
-        int headDrawX = centerX - (150 / 2);  // 计算蛇头左上角X位置
-        int headDrawY = centerY - (150 / 2);  // 计算蛇头左上角Y位置
+        int headDrawX = centerX - (150 / 2);  // calculate the X coordinate of left conner of the snake head
+        int headDrawY = centerY - (150 / 2);  // calculate the Y coordinate of right conner of the snake head
         g2d.drawImage(headImage, headDrawX, headDrawY, 150, 150, null);
 
         g2d.setTransform(oldTransform);
