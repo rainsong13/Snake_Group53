@@ -103,7 +103,7 @@ This game is perfect for anyone looking for a fun and strategic gaming experienc
 
 ### License
 
-This project is licensed under the **MIT License**. See the `LICENSE` file for more details.
+This project is licensed under the **MIT License**.
 
 ### Feedback
 
