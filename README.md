@@ -101,7 +101,6 @@ This game is perfect for anyone looking for a fun and strategic gaming experienc
 #### Gameplay Tips
 - **Green Apples** are safe and standard.
 - **Enemy Snakes** follow distinct strategies. Watch their movement patterns.
-- Use **Purple Apple shields** strategically to escape tight situations.
 
 ### License
 
@@ -113,7 +112,7 @@ We value your feedback to improve the game!
 
 #### How to Provide Feedback
 - Submit feedback via this [Google Form](https://forms.google.com)
-- Alternatively, create an issue on our GitHub repository: [Issue Tracker](https://github.com/your-repo-name/snake-game/issues).
+- Alternatively, create an issue on our GitHub repository: [Issue Tracker](https://github.com/rainsong13/Snake_Group53/issues).
 
 #### Feedback Guidelines
 - Be constructive and detailed.
