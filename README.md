@@ -112,7 +112,7 @@ This project is licensed under the **MIT License**.
 We value your feedback to improve the game!
 
 #### How to Provide Feedback
-- Submit feedback via this [Google Form](https://forms.google.com) (replace with your actual form link).
+- Submit feedback via this [Google Form](https://forms.google.com)
 - Alternatively, create an issue on our GitHub repository: [Issue Tracker](https://github.com/your-repo-name/snake-game/issues).
 
 #### Feedback Guidelines
