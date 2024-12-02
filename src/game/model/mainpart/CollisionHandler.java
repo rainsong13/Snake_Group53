@@ -6,6 +6,8 @@ import game.model.npc.apple_pack.AppleGenerator;
 import game.model.npc.snake_pack.EnemySnake;
 import game.model.npc.snake_pack.Head;
 import game.model.board.Board;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollisionHandler {
@@ -40,7 +42,7 @@ public class CollisionHandler {
             }
         }
 
-        for (EnemySnake enemySnake : enemySnakes) {
+        for (EnemySnake enemySnake : new ArrayList<>(enemySnakes)) {
             for (int[] part : enemySnake.getBodyParts()) {
                 if (headPosition[0] == part[0] && headPosition[1] == part[1]) {
                     System.out.println("Player collided with an enemy snake! Game Over!");
@@ -53,6 +55,7 @@ public class CollisionHandler {
                 int[] bodyPart = enemySnake.getBodyParts().get(i);
                 if (enemyHeadPosition[0] == bodyPart[0] && enemyHeadPosition[1] == bodyPart[1]) {
                     System.out.println("Enemy snake collided with itself!");
+                    enemySnakes.remove(enemySnake);
                 }
             }
         }
