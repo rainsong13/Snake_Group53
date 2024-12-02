@@ -2,21 +2,24 @@ package game.model;
 
 import game.model.mainpart.GameLoop;
 import game.model.mainpart.CollisionHandler;
+import game.model.npc.snake_pack.*;
 import game.model.mainpart.GameOverHandler;
 import game.input.InputHandler;
 import game.model.npc.apple_pack.Apple;
 import game.model.npc.apple_pack.AppleGenerator;
-import game.model.npc.snake_pack.Head;
 import game.output.RenderPanel;
 import game.model.score.Score;
 import game.model.board.Board;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameMain {
     private Board board;
     private Head head;
+    private List<EnemySnake> enemySnakes;
     private RenderPanel renderPanel;
     private InputHandler inputHandler;
     private AppleGenerator appleGenerator;
@@ -38,9 +41,14 @@ public class GameMain {
         head = new Head(10, 10);
         appleGenerator = new AppleGenerator(3);  // Instantiate AppleGenerator
         List<Apple> apples = appleGenerator.getApples();
+        enemySnakes = new ArrayList<>();
 
+        // Add enemy snakes of various types
+        enemySnakes.add(new RandomSnake(5, 15, 15));
+        enemySnakes.add(new AppleChasingSnake(5, 5, 5));
+        enemySnakes.add(new PlayerChasingSnake(5, 5,10));
         // Create RenderPanel
-        renderPanel = new RenderPanel(board, head, apples);
+        renderPanel = new RenderPanel(board, head, apples, enemySnakes);
 
         // Add input handler to the panel
         inputHandler = new InputHandler(renderPanel);  // Pass the renderPanel to InputHandler
@@ -69,7 +77,7 @@ public class GameMain {
         }
 
         // Initialize handlers
-        collisionHandler = new CollisionHandler(board, head, appleGenerator);
+        collisionHandler = new CollisionHandler(board, head, appleGenerator, enemySnakes);
         gameOverHandler = new GameOverHandler(renderPanel, this);
 
         // Start the game loop
@@ -81,12 +89,40 @@ public class GameMain {
         gameFrame.dispose();
     }
 
+    private EnemySnake createRandomEnemySnake() {
+        Random random = new Random();
+        int snakeType = random.nextInt(3);
+
+        int startX = random.nextInt(board.getBoard()[0].length);
+        int startY = random.nextInt(board.getBoard().length);
+        int initialLength = random.nextInt(5) + 3;
+
+        if (snakeType == 0) {
+            System.out.println("A RandomSnake was created!");
+            return new RandomSnake(initialLength, startX, startY);
+        } else if (snakeType == 1) {
+            System.out.println("An AppleChasingSnake was created!");
+            return new AppleChasingSnake(initialLength, startX, startY);
+        }
+        else {
+            System.out.println("A PlayerChasingSnake was created!");
+            return new PlayerChasingSnake(initialLength, startX, startY);
+        }
+    }
+
     private void updateGame() {
         // Update the snake's position using direction from input handler
         int directionX = inputHandler.getDirectionX();
         int directionY = inputHandler.getDirectionY();
         head.move(directionX, directionY);
-
+        for (EnemySnake enemy : enemySnakes){
+            enemy.move(appleGenerator.getApples(), head);
+        }
+        if (enemySnakes.isEmpty()) {
+            EnemySnake newSnake = createRandomEnemySnake();
+            enemySnakes.add(newSnake);
+            System.out.println("A new enemy snake has been added!");
+        }
         // Pass the direction to RenderPanel for rendering
         renderPanel.updateDirection(directionX, directionY);
 

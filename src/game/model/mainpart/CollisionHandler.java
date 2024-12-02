@@ -3,19 +3,24 @@ package game.model.mainpart;
 import game.model.board.Board;
 import game.model.npc.apple_pack.Apple;
 import game.model.npc.apple_pack.AppleGenerator;
+import game.model.npc.snake_pack.EnemySnake;
 import game.model.npc.snake_pack.Head;
 import game.model.board.Board;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CollisionHandler {
     private Board board;
     private Head head;
     private AppleGenerator appleGenerator;
+    private List<EnemySnake> enemySnakes;
 
-    public CollisionHandler(Board board, Head head, AppleGenerator appleGenerator) {
+    public CollisionHandler(Board board, Head head, AppleGenerator appleGenerator, List<EnemySnake> enemySnakes) {
         this.board = board;
         this.head = head;
         this.appleGenerator = appleGenerator;
+        this.enemySnakes = enemySnakes;
     }
 
     public boolean checkCollisions() {
@@ -34,6 +39,27 @@ public class CollisionHandler {
             int[] part = bodyParts.get(i);
             if (headPosition[0] == part[0] && headPosition[1] == part[1]) {
                 return true; // Collision with body
+            }
+        }
+
+        for (EnemySnake enemySnake : new ArrayList<>(enemySnakes)) {
+            for (int[] part : enemySnake.getBodyParts()) {
+                if (headPosition[0] == part[0] && headPosition[1] == part[1]) {
+                    System.out.println("Player collided with an enemy snake! Game Over!");
+                    return true;
+                }
+            }
+
+            int[] enemyHeadPosition = enemySnake.getHeadPosition();
+            for (int i = 1; i < enemySnake.getBodyParts().size(); i++) {
+                int[] bodyPart = enemySnake.getBodyParts().get(i);
+                if (enemyHeadPosition[0] == bodyPart[0] && enemyHeadPosition[1] == bodyPart[1]) {
+                    System.out.println("Enemy snake collided with itself!");
+                    enemySnakes.remove(enemySnake);
+                }
+                if (enemyHeadPosition[0] < 0 || enemyHeadPosition[1] < 0 || enemyHeadPosition[0] >= boardWidth || enemyHeadPosition[1] >= boardHeight) {
+                    enemySnakes.remove(enemySnake);
+                }
             }
         }
 
