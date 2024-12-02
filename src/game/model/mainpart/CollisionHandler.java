@@ -61,6 +61,16 @@ public class CollisionHandler {
                     enemySnakes.remove(enemySnake);
                 }
             }
+            List<Apple> apples = appleGenerator.getApples();
+            for (Apple apple : apples) {
+                int[] applePosition = apple.getPosition();
+                if (enemyHeadPosition[0] == applePosition[0] && enemyHeadPosition[1] == applePosition[1]) {
+                    System.out.println("Enemy Snake Grows");
+                    apple.applyEffect(enemySnake);
+                    apples.remove(apple);  // Remove apple after it's eaten
+                    break;
+                }
+            }
         }
 
         // Check for collisions with apples
