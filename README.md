@@ -65,7 +65,7 @@ This game is perfect for anyone looking for a fun and strategic gaming experienc
 
 2. Clone this repository:
    ```bash
-   git clone https://github.com/your-repo-name/snake-game.git
+   [git clone https://github.com/your-repo-name/snake-game.git](https://github.com/rainsong13/Snake_Group53.git)
 3. Open the Project in IntelliJ IDEA
 
  - Open IntelliJ IDEA and select **"Open or Import"** from the welcome screen.
