@@ -57,6 +57,9 @@ public class CollisionHandler {
                     System.out.println("Enemy snake collided with itself!");
                     enemySnakes.remove(enemySnake);
                 }
+                if (enemyHeadPosition[0] < 0 || enemyHeadPosition[1] < 0 || enemyHeadPosition[0] >= boardWidth || enemyHeadPosition[1] >= boardHeight) {
+                    enemySnakes.remove(enemySnake);
+                }
             }
         }
 
