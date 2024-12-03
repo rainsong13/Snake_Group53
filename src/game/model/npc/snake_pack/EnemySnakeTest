@@ -1,0 +1,91 @@
+package game.model.npc.snake_pack;
+
+import game.model.board.Board;
+import game.model.mainpart.CollisionHandler;
+import game.model.npc.apple_pack.Apple;
+import game.model.npc.apple_pack.AppleGenerator;
+
+import game.model.npc.apple_pack.GreenApple;
+import game.model.npc.apple_pack.RedApple;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
+
+class EnemySnakeTest {
+    private Board board;
+    private Head head;
+    private List<EnemySnake> enemySnakes;
+    private AppleGenerator appleGenerator;
+    private AppleChasingSnake appleChasingSnake;
+    private PlayerChasingSnake playerChasingSnake;
+    private EnemySnake randomSnake;
+    private List<Apple> apples;
+
+    @BeforeEach
+    void setUp() {
+        board = new Board(20, 20);
+        head = new Head(10, 10);
+        appleGenerator = new AppleGenerator(1);
+        apples = new ArrayList<>();
+        apples.add(new GreenApple(apples));
+        apples.add(new RedApple(apples));// Instantiate AppleGenerator
+        enemySnakes = new ArrayList<>();
+        appleChasingSnake = new AppleChasingSnake(5, 5, 5);
+        randomSnake = new EnemySnake(5, 10, 10);
+        playerChasingSnake = new PlayerChasingSnake(5, 10, 10);
+        // Add enemy snakes of various types
+        enemySnakes.add(randomSnake);
+        enemySnakes.add(appleChasingSnake);
+        enemySnakes.add(playerChasingSnake);
+        CollisionHandler collisionHandler = new CollisionHandler(board, head, appleGenerator, enemySnakes);
+    }
+
+    @Test
+    void testAppleChasingSnakeMovesTowardApple() {
+        appleChasingSnake.move(apples, head);
+        int[] headPosition = appleChasingSnake.getHeadPosition();
+        assertTrue(Math.abs(headPosition[0] - apples.get(0).getPosition()[0]) <= 10);
+        assertTrue(Math.abs(headPosition[1] - apples.get(0).getPosition()[1]) <= 10);
+    }
+
+    @Test
+    void testRandomSnakeMovesRandomly() {
+        int[] initialPosition = randomSnake.getHeadPosition();
+
+        for (int i = 0; i < 5; i++) {
+            randomSnake.move(apples, head);
+            int[] newPosition = randomSnake.getHeadPosition();
+            if (initialPosition[0] != newPosition[0] || initialPosition[1] != newPosition[1]) {
+                break;
+            }
+        }
+    }
+
+    @Test
+    void testPlayerChasingSnakeFollowsPlayer() {
+        int[] playerPosition = {10, 10};
+        playerChasingSnake.move(apples, head);
+        int[] headPosition = playerChasingSnake.getHeadPosition();
+        assertTrue(Math.abs(headPosition[0] - 10) <= 1);
+        assertTrue(Math.abs(headPosition[1] - 10) <= 1);
+    }
+
+    @Test
+    void testCollisionWithBoundary() {
+        Head new_head = new Head(-1, -1);
+        CollisionHandler new_collisionHandler =
+                new CollisionHandler(board, new_head, appleGenerator, enemySnakes);
+        assertTrue(new_collisionHandler.checkCollisions());
+    }
+
+    @Test
+    void testCollisionWithBody() {
+        appleChasingSnake.bodyParts.add(new int[]{5, 5});
+        Head new_head = new Head(5, 5);
+        CollisionHandler new_collisionHandler =
+                new CollisionHandler(board, new_head, appleGenerator, enemySnakes);
+        assertTrue(new_collisionHandler.checkCollisions());
+    }
+}
