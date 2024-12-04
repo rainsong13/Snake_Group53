@@ -19,6 +19,7 @@ public class Head extends Snake {
         super.move(directionX, directionY); // Use Snake's move method with the current direction
     }
 
+    // Getters and setters
     public int getDirectionX() {
         return directionX;
     }

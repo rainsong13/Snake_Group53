@@ -3,6 +3,7 @@ package game.model.npc.snake_pack;
 import java.util.ArrayList;
 import java.util.List;
 
+//basic snake class, every snake inherits from this
 public class Snake {
     protected List<int[]> bodyParts; // List to store the positions of the snake's body parts
 

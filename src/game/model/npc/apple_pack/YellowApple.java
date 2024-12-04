@@ -5,6 +5,7 @@ import game.model.npc.snake_pack.Snake;
 import java.awt.Color;
 import java.util.List;
 
+//
 public class YellowApple extends Apple {
     public YellowApple(List<Apple> applesList) {
         super(12000, applesList);  // Existence time in milliseconds
